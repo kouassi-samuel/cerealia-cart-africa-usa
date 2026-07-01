@@ -172,6 +172,74 @@ function ProductDetailPage() {
           </div>
         </div>
       </div>
+
+      <ProductDetails product={product} />
     </div>
   );
 }
+
+type DetailField = {
+  key: "weight_g" | "target_audience" | "description" | "composition" | "benefits" | "preparation";
+  label: string;
+  icon: typeof Weight;
+  accent: string;
+  format?: (v: unknown) => string;
+};
+
+const DETAILS: DetailField[] = [
+  { key: "weight_g", label: "Poids", icon: Weight, accent: "from-amber-400/20 to-amber-600/10", format: (v) => (v ? `${v} g` : "—") },
+  { key: "target_audience", label: "Public cible", icon: Users, accent: "from-emerald-400/20 to-emerald-600/10" },
+  { key: "description", label: "Description", icon: FileText, accent: "from-sky-400/20 to-sky-600/10" },
+  { key: "composition", label: "Composition", icon: FlaskConical, accent: "from-violet-400/20 to-violet-600/10" },
+  { key: "benefits", label: "Bienfaits", icon: Sparkles, accent: "from-rose-400/20 to-rose-600/10" },
+  { key: "preparation", label: "Préparation", icon: ChefHat, accent: "from-orange-400/20 to-orange-600/10" },
+];
+
+function ProductDetails({ product }: { product: Record<string, unknown> }) {
+  const items = DETAILS.map((d) => ({ ...d, value: product[d.key] })).filter(
+    (d) => d.value !== null && d.value !== undefined && d.value !== "",
+  );
+
+  if (items.length === 0) return null;
+
+  return (
+    <section className="mt-20">
+      <div className="mb-8 flex items-end justify-between">
+        <div>
+          <span className="text-xs font-semibold uppercase tracking-widest text-gold">Fiche produit</span>
+          <h2 className="mt-2 font-display text-3xl font-bold text-primary sm:text-4xl">Tout savoir sur ce produit</h2>
+        </div>
+        <div className="hidden h-px flex-1 bg-gradient-to-r from-transparent via-gold/40 to-transparent md:ml-8 md:block" />
+      </div>
+
+      <div className="grid gap-5 md:grid-cols-2">
+        {items.map((item, idx) => {
+          const Icon = item.icon;
+          const value = item.format ? item.format(item.value) : String(item.value);
+          return (
+            <article
+              key={item.key}
+              style={{ animationDelay: `${idx * 80}ms` }}
+              className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-soft transition-all duration-500 hover:-translate-y-1 hover:border-gold/50 hover:shadow-gold motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:fill-mode-both"
+            >
+              <div
+                className={`pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-gradient-to-br ${item.accent} blur-2xl transition-transform duration-700 group-hover:scale-125`}
+              />
+              <div className="relative flex items-start gap-4">
+                <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-gold/90 to-gold/60 text-gold-foreground shadow-gold transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110">
+                  <Icon className="h-5 w-5" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <h3 className="font-display text-lg font-semibold text-primary">{item.label}</h3>
+                  <p className="mt-2 leading-relaxed text-foreground/80">{value}</p>
+                </div>
+              </div>
+              <div className="absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 bg-gradient-to-r from-gold via-gold/70 to-transparent transition-transform duration-500 group-hover:scale-x-100" />
+            </article>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
