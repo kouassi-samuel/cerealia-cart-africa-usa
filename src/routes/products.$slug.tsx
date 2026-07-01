@@ -173,7 +173,7 @@ function ProductDetailPage() {
         </div>
       </div>
 
-      <ProductDetails product={product} />
+      <ProductDetails product={product as unknown as Record<string, unknown>} />
     </div>
   );
 }
