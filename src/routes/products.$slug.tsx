@@ -1,7 +1,20 @@
 import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { Minus, Plus, ShoppingBag, Leaf, Truck, ShieldCheck } from "lucide-react";
+import {
+  Minus,
+  Plus,
+  ShoppingBag,
+  Leaf,
+  Truck,
+  ShieldCheck,
+  Weight,
+  Users,
+  FileText,
+  FlaskConical,
+  Sparkles,
+  ChefHat,
+} from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { imageFor } from "@/lib/products-meta";
