@@ -245,7 +245,9 @@ export type Database = {
       }
       products: {
         Row: {
+          benefits: string | null
           category: string | null
+          composition: string | null
           created_at: string
           description: string | null
           id: string
@@ -253,14 +255,19 @@ export type Database = {
           is_active: boolean
           is_featured: boolean
           name: string
+          preparation: string | null
           short_description: string | null
           slug: string
           stock: number
+          target_audience: string | null
           unit: string
           updated_at: string
+          weight_g: number | null
         }
         Insert: {
+          benefits?: string | null
           category?: string | null
+          composition?: string | null
           created_at?: string
           description?: string | null
           id?: string
@@ -268,14 +275,19 @@ export type Database = {
           is_active?: boolean
           is_featured?: boolean
           name: string
+          preparation?: string | null
           short_description?: string | null
           slug: string
           stock?: number
+          target_audience?: string | null
           unit?: string
           updated_at?: string
+          weight_g?: number | null
         }
         Update: {
+          benefits?: string | null
           category?: string | null
+          composition?: string | null
           created_at?: string
           description?: string | null
           id?: string
@@ -283,11 +295,14 @@ export type Database = {
           is_active?: boolean
           is_featured?: boolean
           name?: string
+          preparation?: string | null
           short_description?: string | null
           slug?: string
           stock?: number
+          target_audience?: string | null
           unit?: string
           updated_at?: string
+          weight_g?: number | null
         }
         Relationships: []
       }
